@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { PropTypes, Component } from 'react'
+import logo from './logo.svg'
+import './index.css'
 
 class App extends Component {
-  render() {
+  // static propTypes = {}
+  // static defaultProps = {}
+  // state = {}
+
+  render () {
     return (
       <div className="App">
         <div className="App-header">
@@ -14,8 +18,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
