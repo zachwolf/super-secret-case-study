@@ -2,17 +2,20 @@
   "name": "super-secret-case-study",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "concurrently": "^3.4.0",
     "express": "^4.15.2",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "watch": "^1.0.2"
   },
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm build:watch\"",
+    "build:watch": "watch 'npm run build' src/",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

@@ -1,5 +1,5 @@
 const express = require('express')
-const fs = require('fs')
+const path = require('path')
 const data = require('./assets/item-data.json')
 
 const app = express()
@@ -15,6 +15,14 @@ app.get('/api/product/:id', (req, res) => {
 	})
 })
 
+// Serve static assets
+app.use(express.static(path.resolve(__dirname, 'build')))
+
+// Always return the main index.html, so react-router render the route in the client
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+})
+
 app.listen(app.get('port'), () => {
-  console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
+  console.log(`Find the server at: http://localhost:${app.get('port')}/`) // eslint-disable-line no-console
 })
