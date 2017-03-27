@@ -59,11 +59,16 @@ class App extends Component {
       product
     } = this.state
 
+
     return isLoading ? null : (
       <div className="app">
         <div className="app__chunk">
           <h1>{ product.title }</h1>
-          <SlideShow { ...get(product, 'Images[0]', {}) } />
+          <SlideShow
+            AlternateImages={ get(product, 'Images[0].AlternateImages', []) }
+            PrimaryImage={ get(product, 'Images[0].PrimaryImage', []) }
+            imageCount={ parseInt(get(product, 'Images[0].imageCount', NaN), 10) }
+          />
         </div>
         <div className="app__chunk app__chunk--pull-right">
           <Price />
