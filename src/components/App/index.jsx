@@ -1,7 +1,17 @@
+// dependencies
 import React, { PropTypes, Component } from 'react'
-import logo from './logo.svg'
+import { get } from 'lodash'
+
+// styles
 import './index.css'
 
+// components
+import SlideShow from '../SlideShow'
+import Price from '../Price'
+import PurchaseItemForm from '../forms/PurchaseItemForm'
+import Reviews from '../Reviews'
+
+// private methods
 function fetchProduct(id, cb) {
   return fetch(`api/product/${id}`, {
     accept: 'application/json',
@@ -52,29 +62,41 @@ class App extends Component {
     return isLoading ? null : (
       <div className="app">
         <div className="app__chunk">
-          <h1>title</h1>
-          <div>
-            image <br />
-            sub images
-          </div>
+          <h1>{ product.title }</h1>
+          <SlideShow { ...get(product, 'Images[0]', {}) } />
         </div>
         <div className="app__chunk app__chunk--pull-right">
-          price <br />
-          special offers <br />
-          quantity <br />
-          pick up in store <br />
-          add to cart <br />
-          returns <br />
-          add to registry <br />
-          add to list <br />
-          share <br />
-          product highlights
+          <Price />
+          { this.renderOffers() }
+          <PurchaseItemForm />
+          <div className="returns">
+            returns <br />
+            This item must be returned within 30 days of the ship date. See return policy for details. Prices, promotions, styles and availability may vary by store and online.
+          </div>
+          <button>add to registry</button>
+          <button>add to list</button>
+          <button>share</button><br />
+          { this.renderHighlights() }
         </div>
         <div className="app__chunk">
-          ratings <br />
-          reviews <br />
-          revies
+          <Reviews />
         </div>
+      </div>
+    )
+  }
+
+  renderOffers = () => {
+    return (
+      <div>
+        offers
+      </div>
+    )
+  }
+
+  renderHighlights = () => {
+    return (
+      <div>
+        highlights
       </div>
     )
   }

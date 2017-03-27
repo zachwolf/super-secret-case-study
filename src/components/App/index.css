@@ -1,7 +1,10 @@
+* { box-sizing: border-box; }
+
 .app {
   margin: 0 auto;
   padding: 0 20px;
   margin-top: 20px;
+  max-width: 480px;
 }
 
 .app__chunk {
@@ -11,6 +14,9 @@
 @media screen and (min-width: 1040px) {
   .app {
     position: relative;
+    width: 1040px;
+    max-width: auto;
+    margin: 0 auto;
   }
 
   .app__chunk {
