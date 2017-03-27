@@ -5,6 +5,6 @@ import 'reset-css/reset.css'
 import './global.css'
 
 ReactDOM.render(
-  <App />,
+  <App id="1840" />,
   document.getElementById('root')
-);
+)

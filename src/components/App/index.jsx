@@ -22,14 +22,20 @@ function checkStatus(response) {
 }
 
 class App extends Component {
-  // static propTypes = {}
-  // static defaultProps = {}
+  static propTypes = {
+    id: PropTypes.string.isRequired
+  }
+
+  static defaultProps = {
+    id: null
+  }
+
   state = {
     isLoading: true
   }
 
   componentDidMount() {
-    fetchProduct('1840', product => { // todo: id could be passed from react router
+    fetchProduct(this.props.id, product => {
       this.setState({
         isLoading: false,
         product
