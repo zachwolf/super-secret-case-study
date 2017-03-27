@@ -44,14 +44,31 @@ class App extends Component {
     } = this.state
 
     return isLoading ? null : (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="app">
+        <div className="app__chunk">
+          <h1>title</h1>
+          <div>
+            image <br />
+            sub images
+          </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="app__chunk app__chunk--pull-right">
+          price <br />
+          special offers <br />
+          quantity <br />
+          pick up in store <br />
+          add to cart <br />
+          returns <br />
+          add to registry <br />
+          add to list <br />
+          share <br />
+          product highlights
+        </div>
+        <div className="app__chunk">
+          ratings <br />
+          reviews <br />
+          revies
+        </div>
       </div>
     )
   }

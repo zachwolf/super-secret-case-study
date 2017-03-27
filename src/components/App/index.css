@@ -1,5 +1,25 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.app {
+  margin: 0 auto;
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.app__chunk {
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 1040px) {
+  .app {
+    position: relative;
+  }
+
+  .app__chunk {
+    width: 50%;
+  }
+
+  .app__chunk--pull-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
