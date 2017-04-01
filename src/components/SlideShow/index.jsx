@@ -42,7 +42,6 @@ class SlideShow extends Component {
     const {
       AlternateImages,
       PrimaryImage,
-      // imageCount,
       onClickZoom
     } = this.props
 
@@ -99,14 +98,6 @@ class SlideShow extends Component {
     })
   }
 
-  // shiftActiveSlide = shiftVal => e => {
-  //   const { imageCount } = this.props
-  //   const { activeSlide } = this.state
-  //   const rawNextVal = activeSlide + shiftVal
-  //   const safeNextVal = rawNextVal > imageCount ? 0 : rawNextVal < 0 ? imageCount - 1 : rawNextVal
-
-  //   return this.setActiveSlide(safeNextVal)
-  // }
 
   setActiveSlide = index => e => {
     this.setState({
