@@ -74,7 +74,7 @@ class App extends Component {
         </div>
         <div className="app__chunk app__chunk--pull-right">
           <Price Offers={ get(product, 'Offers', {}) } />
-          { this.renderOffers() }
+          { this.renderPromotions() }
           <PurchaseItemForm />
           <div className="returns">
             returns <br />
@@ -92,11 +92,19 @@ class App extends Component {
     )
   }
 
-  renderOffers = () => {
+  renderPromotions = () => {
+    const { product } = this.state
+
     return (
-      <div>
-        offers
-      </div>
+      <ul>
+        { get(product, 'Promotions', []).map(promo => {
+          return (
+            <li key={ promo.promotionIdentifier }>
+              { get(promo, 'Description[0].shortDescription', null) }
+            </li>
+          )
+        }) }
+      </ul>
     )
   }
 
