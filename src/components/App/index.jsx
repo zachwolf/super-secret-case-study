@@ -88,7 +88,7 @@ class App extends Component {
           { this.renderHighlights() }
         </div>
         <div className="app__chunk">
-          <Reviews />
+          <Reviews CustomerReview={ get(product, 'CustomerReview[0]', {}) } />
         </div>
       </div>
     )
@@ -111,9 +111,22 @@ class App extends Component {
   }
 
   renderHighlights = () => {
-    return (
+    const { product } = this.state
+
+    const highlights = get(product, 'ItemDescription[0].features', [])
+
+    return !highlights.length ? null : (
       <div>
-        highlights
+        <h3> {/*todo: hXs*/}
+          Product highlights
+        </h3>
+        <ul>
+          { highlights.map((highlight, key) => {
+            return (
+              <li key={ key } dangerouslySetInnerHTML={ { __html: highlight } }></li>
+            )
+          }) }
+        </ul>
       </div>
     )
   }
