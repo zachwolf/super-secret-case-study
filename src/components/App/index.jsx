@@ -59,6 +59,7 @@ class App extends Component {
       product
     } = this.state
 
+    console.log(this.state);
 
     return isLoading ? null : (
       <div className="app">
@@ -72,7 +73,7 @@ class App extends Component {
           />
         </div>
         <div className="app__chunk app__chunk--pull-right">
-          <Price />
+          <Price Offers={ get(product, 'Offers', {}) } />
           { this.renderOffers() }
           <PurchaseItemForm />
           <div className="returns">

@@ -1,24 +1,23 @@
 import React, { PropTypes, Component } from 'react'
-// import { get } from 'lodash'
-// import './index.css'
+import { get } from 'lodash'
 
 class Price extends Component {
   static propTypes = {
-    // AlternateImages: PropTypes.array.isRequired,
-    // PrimaryImage: PropTypes.array.isRequired,
-    // imageCount: PropTypes.string.isRequired
+    Offers: PropTypes.array.isRequired
   }
 
-  static defaultProps = {
-    // AlternateImages: [],
-    // PrimaryImage: [],
-    // imageCount: 0
-  }
+  static defaultProps = {}
 
   render () {
+    const { Offers } = this.props
+    const firstPriceBlock = get(Offers, '[0].OfferPrice[0]', {})
+
     return (
       <div className="price">
-        Price!
+        { get(firstPriceBlock, 'formattedPriceValue', null) }
+        <span className="qualifier">
+          { get(firstPriceBlock, 'priceQualifier', null) }
+        </span>
       </div>
     )
   }
