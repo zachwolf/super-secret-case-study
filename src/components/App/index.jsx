@@ -78,11 +78,13 @@ class App extends Component {
           <PurchaseItemForm />
           <div className="returns">
             returns <br />
-            This item must be returned within 30 days of the ship date. See return policy for details. Prices, promotions, styles and availability may vary by store and online.
+            This item must be returned within 30 days of the ship date. See <a href="#return-policy">return policy</a> for details. Prices, promotions, styles and availability may vary by store and online.
           </div>
-          <button>add to registry</button>
-          <button>add to list</button>
-          <button>share</button><br />
+          <div>
+            <button onClick={ e => console.log('todo') }>add to registry</button>
+            <button onClick={ e => console.log('todo') }>add to list</button>
+            <button onClick={ e => console.log('todo') }>share</button>
+          </div>
           { this.renderHighlights() }
         </div>
         <div className="app__chunk">
