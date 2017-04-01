@@ -12,12 +12,13 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash": "^4.17.4",
+    "radium": "^0.18.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "reset-css": "^2.2.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm build:watch\"",
+    "start": "concurrently \"npm run client\" \"npm run server\"",
     "build:watch": "watch 'npm run build' src/",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
