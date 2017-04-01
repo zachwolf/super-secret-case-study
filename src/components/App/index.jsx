@@ -68,6 +68,7 @@ class App extends Component {
             AlternateImages={ get(product, 'Images[0].AlternateImages', []) }
             PrimaryImage={ get(product, 'Images[0].PrimaryImage', []) }
             imageCount={ parseInt(get(product, 'Images[0].imageCount', NaN), 10) }
+            onClickZoom={ this.showModal }
           />
         </div>
         <div className="app__chunk app__chunk--pull-right">
@@ -104,6 +105,10 @@ class App extends Component {
         highlights
       </div>
     )
+  }
+
+  showModal = url => e => {
+    console.log('show modal with image', url);
   }
 }
 
