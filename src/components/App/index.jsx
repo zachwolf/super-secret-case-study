@@ -2,8 +2,45 @@
 import React, { PropTypes, Component } from 'react'
 import { get } from 'lodash'
 
+// images
+import hangTag from '../../assets/hang-tag.png'
+
 // styles
-import './index.css'
+import Radium, { StyleRoot, Style } from 'radium'
+import { GLOBAL_STYLES, SCREEN_SM, COLOR } from '../common/styles.js'
+const styles = {
+  promo: {
+    wrapper: {
+      borderColor: COLOR.ASH,
+      borderWidth: '1px 0',
+      borderStyle: 'solid',
+      marginTop: 40,
+      marginLeft: -20,
+      marginRight: -20,
+      marginBottom: 20,
+      padding: 15
+    },
+    icon: {
+      height: 17,
+      width: 18,
+      background: `url(${hangTag})`,
+      display: 'inline-block',
+      marginRight: 10,
+      transform: 'translateY(6px)'
+    },
+    item: {
+      common: {
+        color: COLOR.BULLSEYE_RED,
+        textTransform: 'lowercase',
+        marginBottom: 5,
+        fontSize: 17,
+      },
+      last: {
+        marginBottom: 0
+      }
+    }
+  }
+}
 
 // components
 import SlideShow from '../SlideShow'
@@ -59,12 +96,24 @@ class App extends Component {
       product
     } = this.state
 
-    console.log(this.state);
-
     return isLoading ? null : (
-      <div className="app">
+      <StyleRoot className="app" style={ {
+        [SCREEN_SM]: {
+          padding: '0 20px',
+          margin: '60px auto',
+          maxWidth: '480px'
+        }
+      } }>
+        { this.renderGlobalStyles() }
         <div className="app__chunk">
-          <h1>{ product.title }</h1>
+          <h1 style={ {
+            color: COLOR.TEXT_DARKEST,
+            fontWeight: 100,
+            fontSize: 28,
+            textAlign: 'center',
+            lineHeight: 1.1,
+            marginBottom: 40
+          } }>{ product.title }</h1>
           <SlideShow
             AlternateImages={ get(product, 'Images[0].AlternateImages', []) }
             PrimaryImage={ get(product, 'Images[0].PrimaryImage', []) }
@@ -75,7 +124,7 @@ class App extends Component {
         <div className="app__chunk app__chunk--pull-right">
           <Price Offers={ get(product, 'Offers', {}) } />
           { this.renderPromotions() }
-          <PurchaseItemForm />
+          <PurchaseItemForm purchasingChannelCode={ get(product, 'purchasingChannelCode', null) }/>
           <div className="returns">
             returns <br />
             This item must be returned within 30 days of the ship date. See <a href="#return-policy">return policy</a> for details. Prices, promotions, styles and availability may vary by store and online.
@@ -90,6 +139,22 @@ class App extends Component {
         <div className="app__chunk">
           <Reviews CustomerReview={ get(product, 'CustomerReview[0]', {}) } />
         </div>
+      </StyleRoot>
+    )
+  }
+
+  renderGlobalStyles = () => {
+    return (
+      <div>
+        { GLOBAL_STYLES.map(style => {
+          return (
+            <Style
+              key={ style.selector }
+              scopeSelector={ style.selector }
+              rules={ style.rules }
+            />
+          )
+        }) }
       </div>
     )
   }
@@ -98,10 +163,17 @@ class App extends Component {
     const { product } = this.state
 
     return (
-      <ul>
-        { get(product, 'Promotions', []).map(promo => {
+      <ul style={ styles.promo.wrapper }>
+        { get(product, 'Promotions', []).map((promo, key, arr) => {
+          const localStyles = [styles.promo.item.common]
+
+          if (key === arr.length - 1) {
+            localStyles.push(styles.promo.item.last)
+          }
+
           return (
-            <li key={ promo.promotionIdentifier }>
+            <li key={ promo.promotionIdentifier } style={ localStyles }>
+              <span style={ styles.promo.icon } aria-hidden="true"></span>
               { get(promo, 'Description[0].shortDescription', null) }
             </li>
           )
@@ -136,4 +208,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default Radium(App)

@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react'
+import Radium from 'radium'
 import { get } from 'lodash'
 
 class Price extends Component {
@@ -13,14 +14,23 @@ class Price extends Component {
     const firstPriceBlock = get(Offers, '[0].OfferPrice[0]', {})
 
     return (
-      <div className="price">
-        { get(firstPriceBlock, 'formattedPriceValue', null) }
-        <span className="qualifier">
+      <p>
+        <span style={ {
+          fontWeight: 'bold',
+          fontSize: 28
+        } }>
+          { get(firstPriceBlock, 'formattedPriceValue', null) }
+        </span>
+        <span style={ {
+          textTransform: 'lowercase',
+          fontSize: 12,
+          marginLeft: 4
+        } }>
           { get(firstPriceBlock, 'priceQualifier', null) }
         </span>
-      </div>
+      </p>
     )
   }
 }
 
-export default Price
+export default Radium(Price)

@@ -1,21 +1,56 @@
 import React, { PropTypes, Component } from 'react'
-import Radium from 'radium'
+import Radium, { StyleRoot } from 'radium'
 import { get, includes } from 'lodash'
 
+// styles
+import sharedStyles, { SCREEN_SM, COLOR } from '../common/styles.js'
+
+// images
 import zoomIcon from '../../assets/zoom.png'
 import prevIcon from '../../assets/arrow-prev.png'
 import nextIcon from '../../assets/arrow-next.png'
 
 const styles = {
-  thumbnails: {
-    display: 'flex'
-  },
-  thumbnailsList: {
-    display: 'flex'
+  activeSlide: {
+    display: 'flex',
+    justifyContent: 'center'
   },
   thumbnail: {
-    height: 40,
-    width: 40
+    wrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      margin: '110px auto 20px',
+      alignItems: 'center',
+      width: 286
+    },
+    list: {
+      display: 'flex',
+      flexGrow: 1,
+      justifyContent: 'space-between',
+      padding: '0 30px'
+    },
+    image: {
+      base: {
+        maxHeight: 60,
+        width: 60,
+      },
+      active: {
+        border: `1px solid ${COLOR.CHARCOAL}`,
+        borderRadius: 2,
+        overflow: 'hidden'
+      }
+    },
+    nav: {
+      flexGrow: 0
+    }
+  },
+  zoom: {
+    wrapper: {
+      display: 'block',
+      [SCREEN_SM]: {
+        display: 'none'
+      }
+    }
   }
 }
 
@@ -55,30 +90,44 @@ class SlideShow extends Component {
     const activeThumbnailImgs = activeThumbnails.map(index => [ index, get(allSlides, [index, 'image'], '') ])
 
     return (
-      <div className="slideshow">
-        <div>
+      <div>
+        <div style={ styles.activeSlide }>
           <img src={ activeSlideSrc } alt="" onClick={ onClickZoom(activeSlideSrc) } />
         </div>
-        <div className="" onClick={ onClickZoom(activeSlideSrc) }>
-          <span><img src={ zoomIcon } /></span> view larger
-        </div>
-        <div className="slideshow__alt-images" style={ [ styles.thumbnails ] }>
-          <div className="slideshow__nav slideshow__nav--prev" onClick={ this.shiftActiveThumbnails(-1) }>
-            <img src={ prevIcon } />
+        <StyleRoot style={ styles.zoom.wrapper }>
+          <a href="javascript://" onClick={ onClickZoom(activeSlideSrc) }>
+            <img src={ zoomIcon } aria-hidden="true"/> view larger
+          </a>
+        </StyleRoot>
+        <div style={ styles.thumbnail.wrapper }>
+          <div style={ styles.thumbnail.nav } >
+            <a href="javascript://" onClick={ this.shiftActiveThumbnails(-1) }>
+              <img src={ prevIcon } aria-hidden="true" />
+              <span style={ sharedStyles.visuallyhidden }>View previous thumbnail</span>
+            </a>
           </div>
-          <ul className="slideshow__thumbnail-list" style={ [ styles.thumbnailsList ] }>
+          <ul style={ styles.thumbnail.list }>
             { activeThumbnailImgs.map(([index, thumbnail]) => {
+              const localStyles = [styles.thumbnail.image.base]
+
+              if (thumbnail === activeSlideSrc) {
+                localStyles.push(styles.thumbnail.image.active)
+              }
+
               return (
                 <li key={ thumbnail }>
                   <a href="javascript://" onClick={ this.setActiveSlide(index) }>
-                    <img src={ thumbnail } alt="" style={ [ styles.thumbnail ] } />
+                    <img src={ thumbnail } alt="" style={ localStyles } />
                   </a>
                 </li>
               )
             })}
           </ul>
-          <div className="slideshow__nav slideshow__nav--next" onClick={ this.shiftActiveThumbnails(1) }>
-            <img src={ nextIcon } />
+          <div style={ styles.thumbnail.nav } >
+            <a href="javascript://" onClick={ this.shiftActiveThumbnails(1) }>
+              <img src={ nextIcon } aria-hidden="true" />
+              <span style={ sharedStyles.visuallyhidden }>View next thumbnail</span>
+            </a>
           </div>
         </div>
       </div>
