@@ -31,12 +31,30 @@ const styles = {
   wrapper: {},
   header: {
     wrapper: {
-      display: 'flex'
+      padding: '0 20px',
+      display: 'flex',
+      justifyContent: 'space-between'
     },
     overall: {
       display: 'flex'
     },
-
+    overallText: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      marginLeft: 8,
+      marginTop: 10
+    },
+    viewAll: {
+      color: COLOR.TEXT_DARKEST,
+      marginTop: 10,
+      fontWeight: 'bold',
+      fontSize: 14,
+      cursor: 'pointer',
+      textDecoration: 'none',
+      ':hover': {
+        textDecoration: 'underline'
+      }
+    }
   },
   featured: {
     wrapper: {
@@ -83,13 +101,11 @@ class Reviews extends Component {
         <div style={ [styles.header.wrapper, commonStyles.shelf.tight] }>
           <div style={ styles.header.overall }>
             <StarRating rated={ consolidatedOverallRating } />
-            <span>overall</span>
+            <span style={ styles.header.overallText }>overall</span>
           </div>
-          <div>
-            <a href="javascript://">
-              view all { totalReviews } reviews
-            </a>
-          </div>
+          <a href="javascript://" style={ styles.header.viewAll } key="view-all">
+            view all { totalReviews } reviews
+          </a>
         </div>
         <div style={ styles.featured.wrapper }>
           <FeaturedReview

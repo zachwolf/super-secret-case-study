@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import Radium from 'radium'
+import { get } from 'lodash'
 import StarRating from './star-rating.jsx'
-
+import { COLOR } from '../common/styles.js'
 /*
 <div>
   <div>
@@ -36,6 +37,44 @@ import StarRating from './star-rating.jsx'
 
  */
 
+const MONTH_LIST = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
+
+const styles = {
+  header: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginTop: 2,
+    marginBottom: 5
+  },
+  review: {
+    fontSize: 12,
+    lineHeight: 1.5,
+    marginBottom: 10
+  },
+  meta: {
+    fontSize: 12
+  },
+  name: {
+    textDecoration: 'none',
+    color: COLOR.LINK_BLUE,
+    ':hover': {
+      textDecoration: 'underline'
+    }
+  }
+}
 
 class FeaturedReview extends Component {
   static propTypes = {
@@ -56,20 +95,24 @@ class FeaturedReview extends Component {
       style
     } = this.props
 
+    const asDate = new Date(datePosted)
+    const YYYY_MM_DD = `${asDate.getFullYear()}-${asDate.getMonth()}-${asDate.getDate()}`
+    const prettyDate = `${get(MONTH_LIST, asDate.getMonth(), '')} ${asDate.getDate()}, ${asDate.getFullYear()}`
+
     return (
-      <div itemprop="review" itemscope itemtype="http://schema.org/Review" style={ style }>
+      <div itemProp="review" itemScope itemType="http://schema.org/Review" style={ style }>
         <div>
           { this.props.children }
         </div>
         <div>
-          <StarRating rated={ overallRating } static />
-          <h5 itemprop="name">{ title }</h5>
-          <p itemprop="description">
+          <StarRating rated={ overallRating } small />
+          <h5 itemProp="name" style={ styles.header }>{ title }</h5>
+          <p itemProp="description" style={ styles.review }>
             { review }
           </p>
-          <div>
-            <span itemprop="author">{ screenName }</span>
-            <span itemprop="datePublished" content="2011-04-01">{ datePosted }</span> {/*todo: date formatting*/}
+          <div style={ styles.meta }>
+            <a key="name" style={ styles.name } itemProp="author">{ screenName }</a>{' '}
+            <span itemProp="datePublished" content={ YYYY_MM_DD }>{ prettyDate }</span>
           </div>
         </div>
       </div>

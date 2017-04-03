@@ -9,7 +9,8 @@ export const COLOR = {
   WHY_ANOTHER_GREY: '#D3D2D2', // todo: better naming maybe
   DEVIL_GREY: '#666',
   UNSATURATED_SALMON: '#F3F3F3',
-  LIGHTER_UNSATURATED_SALMON: '#F6F5F5'
+  LIGHTER_UNSATURATED_SALMON: '#F6F5F5',
+  LINK_BLUE: '#0E69C9'
 }
 
 export const GLOBAL_STYLES = [
