@@ -24,7 +24,7 @@ class Responsive extends Component {
     return (
       <div>
         {
-          React.Children.map(this.props.children, child => {
+          Children.map(this.props.children, child => {
             return React.cloneElement(child, {
               ...this.state
             })

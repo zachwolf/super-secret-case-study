@@ -122,7 +122,7 @@ class PurchaseItemForm extends Component {
                 style={ [styles.quantity.button.common, styles.quantity.button.decrease] }
                 onClick={ this.shiftQuantity(-1) }
               >
-                <img src={ minusImg } aria-hidden="true" />
+                <img alt="" src={ minusImg } aria-hidden="true" />
                 <span style={ commonStyles.visuallyhidden }>
                   Decrease quantity
                 </span>
@@ -132,7 +132,7 @@ class PurchaseItemForm extends Component {
                 style={ [styles.quantity.button.common, styles.quantity.button.increase] }
                 onClick={ this.shiftQuantity(1) }
               >
-                <img src={ plusImg } aria-hidden="true" />
+                <img alt="" src={ plusImg } aria-hidden="true" />
                 <span style={ commonStyles.visuallyhidden }>
                   Increase quantity
                 </span>

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import Radium from 'radium'
-import { get, includes } from 'lodash'
+import { get } from 'lodash'
 import Responsive from '../responsive'
 
 // styles
@@ -104,7 +104,7 @@ class SlideShow extends Component {
         <div style={ styles.thumbnail.wrapper }>
           <div style={ styles.thumbnail.nav } >
             <a href="javascript://" onClick={ this.shiftActiveThumbnails(-1) }>
-              <img src={ prevIcon } aria-hidden="true" />
+              <img src={ prevIcon } alt="" aria-hidden="true" />
               <span style={ sharedStyles.visuallyhidden }>View previous thumbnail</span>
             </a>
           </div>
@@ -127,7 +127,7 @@ class SlideShow extends Component {
           </ul>
           <div style={ styles.thumbnail.nav } >
             <a href="javascript://" onClick={ this.shiftActiveThumbnails(1) }>
-              <img src={ nextIcon } aria-hidden="true" />
+              <img src={ nextIcon } alt="" aria-hidden="true" />
               <span style={ sharedStyles.visuallyhidden }>View next thumbnail</span>
             </a>
           </div>
@@ -139,7 +139,7 @@ class SlideShow extends Component {
   ZoomLink = Radium(props => {
     return props[SCREEN_LG] ? (
       <a href="javascript://" onClick={ props.onClick } style={ [styles.zoom, sharedStyles.shelf.sm] } key="zoom-icon">
-        <img src={ zoomIcon } aria-hidden="true"/> <span>view larger</span>
+        <img src={ zoomIcon } aria-hidden="true" alt=""/> <span>view larger</span>
       </a>
     ) : null
   })

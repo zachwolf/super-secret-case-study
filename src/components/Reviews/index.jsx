@@ -4,28 +4,6 @@ import { get } from 'lodash'
 import StarRating from './star-rating.jsx'
 import FeaturedReview from './featured-review.jsx'
 import commonStyles, { COLOR } from '../common/styles.js'
-/*
-
-<div itemprop="aggregateRating"
-    itemscope itemtype="http://schema.org/AggregateRating">
-   Rated <span itemprop="ratingValue">3.5</span>/5
-   based on <span itemprop="reviewCount">11</span> customer reviews
-  </div>
-*/
-/*todo: schema.org/Rating*/
-        /*<div>
-                  <div
-                    itemprop="aggregateRating"
-                    itemscope itemtype="http://schema.org/AggregateRating"
-                  >
-                    Rated <span itemprop="ratingValue">3.5</span>/5
-                    based on <span itemprop="reviewCount">11</span> customer reviews
-                  </div>
-                  <StarRating rated={ 5 } />
-                  <a href="javascript://" onClick={ e => console.log('todo: view all ratings') }>
-                    view all 14 reviews
-                  </a>
-                </div>*/
 
 const styles = {
   wrapper: {},
@@ -83,28 +61,21 @@ const styles = {
 
 class Reviews extends Component {
   static propTypes = {
-    CustomerReview: PropTypes.object.isRequired,
+    CustomerReview: PropTypes.object.isRequired
   }
 
   render () {
     const { CustomerReview } = this.props
 
-    const {
-      totalReviews,
-      Con,
-      Pro,
-      consolidatedOverallRating
-    } = this.props.CustomerReview
-
     return (
       <div style={ styles.wrapper }>
         <div style={ [styles.header.wrapper, commonStyles.shelf.tight] }>
           <div style={ styles.header.overall }>
-            <StarRating rated={ consolidatedOverallRating } />
+            <StarRating rated={ CustomerReview.consolidatedOverallRating } />
             <span style={ styles.header.overallText }>overall</span>
           </div>
           <a href="javascript://" style={ styles.header.viewAll } key="view-all">
-            view all { totalReviews } reviews
+            view all { CustomerReview.totalReviews } reviews
           </a>
         </div>
         <div style={ styles.featured.wrapper }>

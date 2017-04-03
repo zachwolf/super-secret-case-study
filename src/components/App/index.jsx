@@ -4,7 +4,7 @@ import { get } from 'lodash'
 
 // styles
 import Radium, { Style } from 'radium'
-import commonStyles, { GLOBAL_STYLES, SCREEN_SM, SCREEN_LG, COLOR } from '../common/styles.js'
+import commonStyles, { GLOBAL_STYLES, SCREEN_SM, SCREEN_LG } from '../common/styles.js'
 import styles from './styles.js'
 import Responsive from '../responsive'
 
@@ -13,46 +13,6 @@ import SlideShow from '../SlideShow'
 import Price from '../Price'
 import PurchaseItemForm from '../forms/PurchaseItemForm'
 import Reviews from '../Reviews'
-
-
-
-/*
-
-<div itemscope itemtype="http://schema.org/Product">
-  <span itemprop="name">Kenmore White 17" Microwave</span>
-  <img itemprop="image" src="kenmore-microwave-17in.jpg" alt='Kenmore 17" Microwave' />
-  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <!--price is 1000, a number, with locale-specific thousands separator
-    and decimal mark, and the $ character is marked up with the
-    machine-readable code "USD" -->
-    <span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price" content="1000.00">1,000.00</span>
-    <link itemprop="availability" href="http://schema.org/InStock" />In stock
-  </div>
-  Product description:
-  <span itemprop="description">0.7 cubic feet countertop microwave.
-  Has six preset cooking categories and convenience features like
-  Add-A-Minute and Child Lock.</span>
-  Customer reviews:
-  
-  <div itemprop="review" itemscope itemtype="http://schema.org/Review">
-    <span itemprop="name">Value purchase</span> -
-    by <span itemprop="author">Lucas</span>,
-    <meta itemprop="datePublished" content="2011-03-25">March 25, 2011
-    <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-      <meta itemprop="worstRating" content = "1"/>
-      <span itemprop="ratingValue">4</span>/
-      <span itemprop="bestRating">5</span>stars
-    </div>
-    <span itemprop="description">Great microwave for the price. It is small and
-    fits in my apartment.</span>
-  </div>
-</div>
-
-
- */
-
-
 
 // private methods
 function fetchProduct(id, cb) {

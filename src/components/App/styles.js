@@ -14,7 +14,6 @@ export default {
       [SCREEN_LG]: {
         margin: '40px auto',
         padding: '0 20px',
-        maxWidth: 'auto',
         position: 'relative',
         maxWidth: 1040
       }
