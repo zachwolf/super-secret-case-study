@@ -34,7 +34,7 @@ function checkStatus(response) {
   throw error
 }
 
-class App extends Component {
+export class App extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired
   }
