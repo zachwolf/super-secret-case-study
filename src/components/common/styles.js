@@ -6,7 +6,10 @@ export const COLOR = {
   BULLSEYE_RED: '#C71713',
   CHARCOAL: '#999999',
   ASH: '#ccc',
-  WHY_ANOTHER_GREY: '#D3D2D2' // todo: better naming maybe
+  WHY_ANOTHER_GREY: '#D3D2D2', // todo: better naming maybe
+  DEVIL_GREY: '#666',
+  UNSATURATED_SALMON: '#F3F3F3',
+  LIGHTER_UNSATURATED_SALMON: '#F6F5F5'
 }
 
 export const GLOBAL_STYLES = [
@@ -34,6 +37,12 @@ export default {
   shelf: {
     sm: {
       marginBottom: 30
+    },
+    tight: {
+      marginBottom: 20
+    },
+    md: {
+      marginBottom: 60
     }
   },
   button: {
