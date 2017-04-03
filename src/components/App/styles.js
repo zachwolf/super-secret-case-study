@@ -1,9 +1,38 @@
-import { COLOR } from '../common/styles.js'
+import { COLOR, SCREEN_SM, SCREEN_LG } from '../common/styles.js'
 
 // images
 import hangTag from '../../assets/hang-tag.png'
 
 export default {
+  layout: {
+    wrapper: {
+      [SCREEN_SM]: {
+        padding: '0 20px',
+        margin: '60px auto',
+        maxWidth: 480
+      },
+      [SCREEN_LG]: {
+        margin: '40px auto',
+        padding: '0 20px',
+        maxWidth: 'auto',
+        position: 'relative',
+        maxWidth: 1040
+      }
+    },
+    chunk: {
+      [SCREEN_LG]: {
+        width: '50%'
+      }
+    },
+    chunkRight: {
+      [SCREEN_LG]: {
+        position: 'absolute',
+        zIndex: 1,
+        right: 0,
+        top: 0
+      }
+    }
+  },
   pageTitle: {
     color: COLOR.TEXT_DARKEST,
     fontWeight: 100,

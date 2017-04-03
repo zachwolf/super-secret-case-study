@@ -2,11 +2,11 @@
 import React, { PropTypes, Component } from 'react'
 import { get } from 'lodash'
 
-
 // styles
-import Radium, { StyleRoot, Style } from 'radium'
-import commonStyles, { GLOBAL_STYLES, SCREEN_SM, COLOR } from '../common/styles.js'
+import Radium, { Style } from 'radium'
+import commonStyles, { GLOBAL_STYLES, SCREEN_SM, SCREEN_LG, COLOR } from '../common/styles.js'
 import styles from './styles.js'
+import Responsive from '../responsive'
 
 // components
 import SlideShow from '../SlideShow'
@@ -103,66 +103,108 @@ class App extends Component {
     } = this.state
 
     return isLoading ? null : (
-      <StyleRoot className="app" style={ {
-        [SCREEN_SM]: {
-          padding: '0 20px',
-          margin: '60px auto',
-          maxWidth: '480px'
-        }
-      } }>
-        { this.renderGlobalStyles() }
-        <div className="app__chunk">
-          <h1 style={ styles.pageTitle }>{ product.title }</h1>
-          <SlideShow
-            AlternateImages={ get(product, 'Images[0].AlternateImages', []) }
-            PrimaryImage={ get(product, 'Images[0].PrimaryImage', []) }
-            imageCount={ parseInt(get(product, 'Images[0].imageCount', NaN), 10) }
-            onClickZoom={ this.showModal }
-          />
-        </div>
-        <div className="app__chunk app__chunk--pull-right">
-          <Price Offers={ get(product, 'Offers', {}) } />
-          { this.renderPromotions() }
-          <PurchaseItemForm purchasingChannelCode={ get(product, 'purchasingChannelCode', null) }/>
-          <div style={ [styles.returns.wrapper, commonStyles.shelf.sm] }>
-            <h3 style={ styles.returns.title }>
-              Returns
-            </h3>
-            <p style={ styles.returns.body }>
-              This item must be returned within 30 days of the ship date. See <a key="return-policy" style={ styles.returns.link } href="#return-policy">return policy</a> for details. Prices, promotions, styles and availability may vary by store and online.
-            </p>
-          </div>
-          <div style={ [styles.buttonList.wrapper, commonStyles.shelf.tight] }>
-            <button
-              key="add-to-registry"
-              style={ styles.buttonList.button.common }
-              onClick={ e => console.log('todo') }
-            >
-              Add to registry
-            </button>
-            <button
-              key="add-to-list"
-              style={ styles.buttonList.button.common }
-              onClick={ e => console.log('todo') }
-            >
-              Add to list
-            </button>
-            <button
-              key="share"
-              style={ [styles.buttonList.button.common, styles.buttonList.button.last] }
-              onClick={ e => console.log('todo') }
-            >
-              Share
-            </button>
-          </div>
-          { this.renderHighlights() }
-        </div>
-        <div className="app__chunk">
-          <Reviews CustomerReview={ get(product, 'CustomerReview[0]', {}) } />
-        </div>
-      </StyleRoot>
+      <Responsive>
+        <this.Wrapper>
+          { this.renderGlobalStyles() }
+          <Responsive>
+            <this.Chunk>
+              <h1 style={ styles.pageTitle }>{ product.title }</h1>
+              <SlideShow
+                AlternateImages={ get(product, 'Images[0].AlternateImages', []) }
+                PrimaryImage={ get(product, 'Images[0].PrimaryImage', []) }
+                imageCount={ parseInt(get(product, 'Images[0].imageCount', NaN), 10) }
+                onClickZoom={ this.showModal }
+              />
+            </this.Chunk>
+          </Responsive>
+          <Responsive>
+            <this.Chunk pullRight>
+              <Price Offers={ get(product, 'Offers', {}) } />
+              { this.renderPromotions() }
+              <PurchaseItemForm purchasingChannelCode={ get(product, 'purchasingChannelCode', null) }/>
+              <div style={ [styles.returns.wrapper, commonStyles.shelf.sm] }>
+                <h3 style={ styles.returns.title }>
+                  Returns
+                </h3>
+                <p style={ styles.returns.body }>
+                  This item must be returned within 30 days of the ship date. See <a key="return-policy" style={ styles.returns.link } href="#return-policy">return policy</a> for details. Prices, promotions, styles and availability may vary by store and online.
+                </p>
+              </div>
+              <div style={ [styles.buttonList.wrapper, commonStyles.shelf.tight] }>
+                <button
+                  key="add-to-registry"
+                  style={ styles.buttonList.button.common }
+                  onClick={ e => console.log('todo') }
+                >
+                  Add to registry
+                </button>
+                <button
+                  key="add-to-list"
+                  style={ styles.buttonList.button.common }
+                  onClick={ e => console.log('todo') }
+                >
+                  Add to list
+                </button>
+                <button
+                  key="share"
+                  style={ [styles.buttonList.button.common, styles.buttonList.button.last] }
+                  onClick={ e => console.log('todo') }
+                >
+                  Share
+                </button>
+              </div>
+              { this.renderHighlights() }
+            </this.Chunk>
+          </Responsive>
+          <Responsive>
+            <this.Chunk>
+              <Reviews CustomerReview={ get(product, 'CustomerReview[0]', {}) } />
+            </this.Chunk>
+          </Responsive>
+        </this.Wrapper>
+      </Responsive>
     )
   }
+
+  Wrapper = Radium(props => {
+    const wrapperStyles = []
+
+    if (props[SCREEN_SM]) {
+      wrapperStyles.push(styles.layout.wrapper[SCREEN_SM])
+    }
+
+    if (props[SCREEN_LG]) {
+      wrapperStyles.push(styles.layout.wrapper[SCREEN_LG])
+    }
+
+    return (
+      <div style={ wrapperStyles }>
+        { props.children }
+      </div>
+    )
+  })
+
+  Chunk = Radium(props => {
+    const wrapperStyles = []
+
+    if (props[SCREEN_SM]) {
+      wrapperStyles.push(commonStyles.shelf.tight)
+    }
+
+    if (props[SCREEN_LG]) {
+      wrapperStyles.push(styles.layout.chunk[SCREEN_LG])
+    }
+
+    if (props.pullRight && props[SCREEN_LG]) {
+      wrapperStyles.push(styles.layout.chunkRight[SCREEN_LG])
+    }
+
+    return (
+      <div style={ wrapperStyles }>
+        { props.children }
+      </div>
+    )
+  })
 
   renderGlobalStyles = () => {
     return (

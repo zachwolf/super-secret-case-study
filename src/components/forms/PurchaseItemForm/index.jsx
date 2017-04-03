@@ -11,7 +11,8 @@ import minusImg from '../../../assets/minus.png'
 import plusImg from '../../../assets/plus.png'
 
 // styles
-import commonStyles, { COLOR } from '../../common/styles.js'
+import Responsive from '../../responsive'
+import commonStyles, { COLOR, SCREEN_LG } from '../../common/styles.js'
 const styles = {
   quantity: {
     wrapper: {
@@ -52,6 +53,25 @@ const styles = {
       display: 'flex',
       justifyContent: 'flex-start'
     }
+  },
+  findInStore: {
+    wrapper: {
+      position: 'relative'
+    },
+    button: {
+      color: COLOR.TEXT_DARKEST,
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 2,
+      textAlign: 'center',
+      textDecoration: 'none',
+      fontSize: 12,
+      fontWeight: 'bold',
+      ':hover': {
+        textDecoration: 'underline'
+      }
+    }
   }
 }
 
@@ -75,7 +95,7 @@ class PurchaseItemForm extends Component {
     const { min, max, purchasingChannelCode } = this.props
 
     return (
-      <div className="purchase-item">
+      <div>
         <form onSubmit={ () => console.log('todo: form submit') }>
           <fieldset>
             <div style={ [styles.quantity.wrapper, commonStyles.shelf.sm] }>
@@ -125,25 +145,24 @@ class PurchaseItemForm extends Component {
             </legend>
             <div style={ [styles.fulfillment.wrapper, commonStyles.shelf.sm] }>
               { includes(['0', '1'], purchasingChannelCode) && (
-                <div>
+                <div style={{ width: '49%'}}>
                   <button
                     key="ispuBtn"
-                    style={ [commonStyles.button.common, commonStyles.button.secondary] }
+                    style={ [commonStyles.button.common, commonStyles.button.secondary, { width: '100%'}] }
                   >
                     Pick up in store
                   </button>
-                  {/*
-                  TODO: desktop only
-                  <button>
-                    Find in a store
-                  </button>*/
-                  }
+                  <div style={ styles.findInStore.wrapper }>
+                    <Responsive>
+                      <this.FindInStoreBtn />
+                    </Responsive>
+                  </div>
                 </div>
               ) }
               { includes(['0', '2'], purchasingChannelCode) && (
                 <button
                   key="cartBtn"
-                  style={ [commonStyles.button.common, commonStyles.button.action, { marginLeft: 10 }] }
+                  style={ [commonStyles.button.common, commonStyles.button.action, { width: '49%', marginLeft: '2%' }] }
                 >
                   Add to cart
                 </button>
@@ -154,6 +173,14 @@ class PurchaseItemForm extends Component {
       </div>
     )
   }
+
+  FindInStoreBtn = Radium(props => {
+    return props[SCREEN_LG] ? (
+      <a href="javascript://" key="find-in-a-store" style={ styles.findInStore.button }>
+        find in a store
+      </a>
+    ) : null
+  })
 
   shiftQuantity = amount => e => {
     const currentQuantity = this.state.quantity + amount

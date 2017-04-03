@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react'
-import Radium, { StyleRoot } from 'radium'
+import Radium from 'radium'
 import { get, includes } from 'lodash'
+import Responsive from '../responsive'
 
 // styles
-import sharedStyles, { SCREEN_SM, COLOR } from '../common/styles.js'
+import sharedStyles, { SCREEN_LG, COLOR } from '../common/styles.js'
 
 // images
 import zoomIcon from '../../assets/zoom.png'
@@ -19,7 +20,7 @@ const styles = {
     wrapper: {
       display: 'flex',
       justifyContent: 'space-between',
-      margin: '110px auto 20px',
+      margin: '0 auto 20px',
       alignItems: 'center',
       width: 286
     },
@@ -45,11 +46,14 @@ const styles = {
     }
   },
   zoom: {
-    wrapper: {
-      display: 'block',
-      [SCREEN_SM]: {
-        display: 'none'
-      }
+    display: 'flex',
+    color: COLOR.DEVIL_GREY,
+    textDecoration: 'none',
+    fontSize: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ':hover': {
+      textDecoration: 'underline'
     }
   }
 }
@@ -91,14 +95,12 @@ class SlideShow extends Component {
 
     return (
       <div>
-        <div style={ styles.activeSlide }>
+        <div style={ [styles.activeSlide, sharedStyles.shelf.YUGGGE] }>
           <img src={ activeSlideSrc } alt="" onClick={ onClickZoom(activeSlideSrc) } />
         </div>
-        <StyleRoot style={ styles.zoom.wrapper }>
-          <a href="javascript://" onClick={ onClickZoom(activeSlideSrc) }>
-            <img src={ zoomIcon } aria-hidden="true"/> view larger
-          </a>
-        </StyleRoot>
+        <Responsive>
+          <this.ZoomLink onClick={ onClickZoom(activeSlideSrc) }/>
+        </Responsive>
         <div style={ styles.thumbnail.wrapper }>
           <div style={ styles.thumbnail.nav } >
             <a href="javascript://" onClick={ this.shiftActiveThumbnails(-1) }>
@@ -133,6 +135,14 @@ class SlideShow extends Component {
       </div>
     )
   }
+
+  ZoomLink = Radium(props => {
+    return props[SCREEN_LG] ? (
+      <a href="javascript://" onClick={ props.onClick } style={ [styles.zoom, sharedStyles.shelf.sm] } key="zoom-icon">
+        <img src={ zoomIcon } aria-hidden="true"/> <span>view larger</span>
+      </a>
+    ) : null
+  })
 
   shiftActiveThumbnails = shiftVal => e => {
     const { imageCount } = this.props

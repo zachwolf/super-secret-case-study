@@ -1,4 +1,5 @@
-export const SCREEN_SM = '@media (max-width: 1040px)'
+export const SCREEN_SM = 'screen and (max-width: 1040px)'
+export const SCREEN_LG = 'screen and (min-width: 1041px)'
 
 export const COLOR = {
   TEXT_DARKEST: '#000',
@@ -44,15 +45,17 @@ export default {
     },
     md: {
       marginBottom: 60
+    },
+    YUGGGE: {
+      marginBottom: 110
     }
   },
   button: {
     common: {
       textTransform: 'uppercase',
-      whiteSpace: 'nowrap',
       fontSize: 18,
       fontWeight: 300,
-      padding: '10px 40px',
+      padding: '10px 15px',
       borderRadius: 3,
       borderWidth: 1,
       borderStyle: 'solid',
